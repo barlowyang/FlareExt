@@ -1086,7 +1086,7 @@ package flare.core
 		
 		override public function draw(includeChildren:Boolean = true, material:Material3D = null) : void
 		{
-			var currParticle:* = 0;
+			var currParticle:Number = 0;
 			var i:* = 0;
 			if(this._buildQueued)
 			{
@@ -1149,7 +1149,7 @@ package flare.core
 			this._material.params.colorTexture.value = this._colorTexture;
 			this._material.programs[0].sourceFactor = this._srcFactor;
 			this._material.programs[0].destFactor = this._destFactor;
-			if(this._sortParticleMode == SORT_NONE)
+			if(this._sortParticleMode == SORT_NONE || true)
 			{
 				this._material.draw(this,this._surface);
 			}
@@ -1175,6 +1175,7 @@ package flare.core
 			{
 				for(i = children.length - 1; i >= 0; children[i].draw(true,material),i--)
 				{
+					
 				}
 			}
 			if(_eventFlags & EXIT_DRAW_FLAG)

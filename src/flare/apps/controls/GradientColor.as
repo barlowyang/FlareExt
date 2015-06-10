@@ -198,16 +198,16 @@ package flare.apps.controls
 			_colors = [];
 			_alphas = [];
 			_ratios = [];
-			for each(var _loc1_:ColorKey in _keys)
+			for each(var key:ColorKey in _keys)
 			{
-				if(_loc1_.visible)
+				if(key.visible)
 				{
-					view.addChild(_loc1_);
-					_loc1_.x = _loc1_.ratio / 255 * width;
-					_loc1_.y = height - 5;
-					_colors.push(_loc1_.color);
-					_alphas.push(_loc1_.opacity);
-					_ratios.push(_loc1_.ratio);
+					view.addChild(key);
+					key.x = key.ratio / 255 * width;
+					key.y = height - 5;
+					_colors.push(key.color);
+					_alphas.push(key.opacity);
+					_ratios.push(key.ratio);
 				}
 			}
 			view.graphics.clear();
@@ -227,7 +227,7 @@ package flare.apps.controls
 			view.graphics.endFill();
 		}
 		
-		public function setColors(param1:Array, param2:Array = null, param3:Array = null) : void
+		public function setColors(t_colors:Array, t_optacity:Array = null, t_alpha:Array = null) : void
 		{
 			var _loc4_:* = 0;
 			_keys = new Vector.<ColorKey>();
@@ -237,9 +237,9 @@ package flare.apps.controls
 				view.removeChildAt(0);
 			}
 			_loc4_ = 0;
-			while(_loc4_ < param3.length)
+			while(_loc4_ < t_alpha.length)
 			{
-				current = addKey(param1?param1[_loc4_]:16777215,param2?param2[_loc4_]:1,param3[_loc4_]);
+				current = addKey(t_colors?t_colors[_loc4_]:16777215,t_optacity?t_optacity[_loc4_]:1,t_alpha[_loc4_]);
 				_loc4_++;
 			}
 			draw();
