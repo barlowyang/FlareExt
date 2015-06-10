@@ -6,11 +6,14 @@
     <classEntry path="flare.apps.controls.Control"/>
     <classEntry path="flare.apps.controls.GradientColor"/>
     <classEntry path="flare.apps.controls.IColorControl"/>
+    <classEntry path="flare.apps.controls.Image"/>
+    <classEntry path="flare.apps.controls.ImageButton"/>
     <classEntry path="flare.apps.controls.View"/>
     <classEntry path="flare.apps.core.Style"/>
     <classEntry path="flare.apps.events.ControlEvent"/>
     <classEntry path="flare.core.Particles3DExt"/>
     <classEntry path="flare.core.Particles3DExtEdit"/>
+    <classEntry path="flare.ide.controls.TexturePicker"/>
     <classEntry path="flare.naruto.particle.datas.TParticle3DProperty"/>
     <classEntry path="flare.naruto.particle.emitter.OneD.TOneDConst"/>
     <classEntry path="flare.naruto.particle.emitter.OneD.TOneDRandom"/>
