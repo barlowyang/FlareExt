@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="flare.apps.containers.Container"/>
+    <classEntry path="flare.apps.controls.BitmapFont"/>
+    <classEntry path="flare.apps.controls.Control"/>
+    <classEntry path="flare.apps.controls.GradientColor"/>
+    <classEntry path="flare.apps.controls.IColorControl"/>
+    <classEntry path="flare.apps.controls.View"/>
+    <classEntry path="flare.apps.core.Style"/>
+    <classEntry path="flare.apps.events.ControlEvent"/>
+    <classEntry path="flare.core.Particles3DExt"/>
+    <classEntry path="flare.core.Particles3DExtEdit"/>
+    <classEntry path="flare.naruto.particle.datas.TParticle3DProperty"/>
+    <classEntry path="flare.naruto.particle.emitter.OneD.TOneDConst"/>
+    <classEntry path="flare.naruto.particle.emitter.OneD.TOneDRandom"/>
+    <classEntry path="flare.naruto.particle.emitter.TParticleAreaBase"/>
+    <classEntry path="flare.naruto.particle.emitter.TValueBase"/>
+    <classEntry path="flare.naruto.particle.emitter.ThreeD.TThreeDComposite"/>
+    <classEntry path="flare.naruto.particle.emitter.ThreeD.TThreeDConst"/>
+    <classEntry path="flare.naruto.particle.emitter.ThreeD.TThreeDCylinder"/>
+    <classEntry path="flare.naruto.particle.emitter.ThreeD.TThreeDSphere"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
