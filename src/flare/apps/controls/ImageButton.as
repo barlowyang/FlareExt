@@ -22,7 +22,7 @@ package flare.apps.controls
          if(param2 && param1 is Array == false)
          {
             _single = true;
-            var param1:* = [param1,param1];
+            param1 = [param1,param1];
          }
          super(param1);
          this.toggle = param2;

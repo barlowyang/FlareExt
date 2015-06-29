@@ -88,7 +88,7 @@ package flare.apps.controls
       {
          if(flexible != 0)
          {
-            if(!(_minWidth == -1) && val < _minWidth)
+            if(_minWidth != -1 && val < _minWidth)
             {
                val = _minWidth;
             }

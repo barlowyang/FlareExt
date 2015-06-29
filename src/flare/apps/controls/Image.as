@@ -19,7 +19,7 @@ package flare.apps.controls
       
       public var borders:Boolean = true;
       
-      private var _source;
+      private var _source:*;
       
       private var _autoAdjust:Boolean;
       
@@ -82,14 +82,14 @@ package flare.apps.controls
          }
          if(param1 is String)
          {
-            var param1:* = (param1).split(",");
+            param1 = (param1).split(",");
          }
          if(param1 is Array)
          {
             _array = [];
             var _loc4_:* = 0;
             var _loc3_:* = param1;
-            for each(var _loc2_ in param1)
+            for each(var _loc2_:* in param1)
             {
                _array.push(addSource(_loc2_));
             }

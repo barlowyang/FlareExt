@@ -32,28 +32,28 @@ package flare.apps.containers
          this.flexible = 1;
       }
       
-      public function addControl(param1:Control) : void
+      public function addControl(child:Control) : void
       {
-         this.addControlAt(param1,controls.length);
+         this.addControlAt(child, controls.length);
       }
       
-      public function addControlAt(param1:Control, param2:int = 0) : void
+      public function addControlAt(child:Control, idx:int = 0) : void
       {
-         if(param1.parent == this)
+         if(child.parent == this)
          {
             return;
          }
-         if(param1.parent)
+         if(child.parent)
          {
-            param1.parent.removeControl(param1);
+            child.parent.removeControl(child);
          }
-         controls.splice(param2,0,param1);
-         param1.parent = this;
-         param1.addEventListener("click",dispatchEvent);
-         param1.addEventListener("undo",dispatchEvent);
-         param1.addEventListener("stop",dispatchEvent);
-         param1.addEventListener("change",dispatchEvent);
-         _content.addChild(param1.view);
+         controls.splice(idx,0,child);
+         child.parent = this;
+         child.addEventListener("click",dispatchEvent);
+         child.addEventListener("undo",dispatchEvent);
+         child.addEventListener("stop",dispatchEvent);
+         child.addEventListener("change",dispatchEvent);
+         _content.addChild(child.view);
       }
       
       public function removeAllControls() : void
@@ -64,43 +64,42 @@ package flare.apps.containers
          }
       }
       
-      public function removeControl(param1:Control) : void
+      public function removeControl(child:Control) : void
       {
-         var _loc2_:int = controls.indexOf(param1);
-         if(_loc2_ != -1)
+         var idx:int = controls.indexOf(child);
+         if(idx != -1)
          {
-            controls.splice(_loc2_,1);
-            _content.removeChild(param1.view);
-            param1.parent = null;
-            param1.removeEventListener("click",dispatchEvent);
-            param1.removeEventListener("undo",dispatchEvent);
-            param1.removeEventListener("stop",dispatchEvent);
-            param1.removeEventListener("change",dispatchEvent);
+            controls.splice(idx,1);
+            _content.removeChild(child.view);
+            child.parent = null;
+            child.removeEventListener("click",dispatchEvent);
+            child.removeEventListener("undo",dispatchEvent);
+            child.removeEventListener("stop",dispatchEvent);
+            child.removeEventListener("change",dispatchEvent);
          }
       }
-      
+	  
+      /*
       public function getControlByName(param1:String, param2:int = 0) : Control
       {
-         var _loc3_:* = null;
-         var _loc6_:* = 0;
-         var _loc5_:* = controls;
-         for each(var _loc4_:Control in controls)
+         var child_1:Control;
+         for each(var child_2:Control in controls)
          {
-            if(_loc4_.name == param1 && param2 < 0)
+            if(child_2.name == param1 && param2 < 0)
             {
-               return _loc4_;
+               return child_2;
             }
-            if(_loc4_ is Container)
+            if(child_2 is Container)
             {
-               _loc3_ = Container(_loc4_).getControlByName(param1,param2);
-               if(_loc3_)
+               child_1 = Container(child_2).getControlByName(param1,param2);
+               if(child_1)
                {
-                  return _loc3_;
+                  return child_1;
                }
             }
          }
          return null;
-      }
+      }*/
       
       public function get content() : Sprite
       {
@@ -135,6 +134,7 @@ package flare.apps.containers
             _borders.graphics.lineStyle(1,Style.borderBright,1,true);
             _borders.graphics.drawRect(0,0,width,height);
          }
+		 
          view.graphics.clear();
          if(background)
          {
