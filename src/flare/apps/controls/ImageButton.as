@@ -2,8 +2,9 @@ package flare.apps.controls
 {
    import flash.display.Shape;
    import flash.events.MouseEvent;
-   import flare.apps.events.ControlEvent;
+   
    import flare.apps.core.Style;
+   import flare.apps.events.ControlEvent;
    
    public class ImageButton extends Image
    {
@@ -16,16 +17,16 @@ package flare.apps.controls
       
       public var toggle:Boolean;
       
-      public function ImageButton(param1:* = null, param2:Boolean = false)
+      public function ImageButton(request:* = null, toggle_t:Boolean = false)
       {
          _border = new Shape();
-         if(param2 && param1 is Array == false)
+         if(toggle_t && request is Array == false)
          {
             _single = true;
-            param1 = [param1,param1];
+            request = [request, request];
          }
-         super(param1);
-         this.toggle = param2;
+         super(request);
+         this.toggle = toggle_t;
          view.buttonMode = true;
          view.addEventListener("click",mouseClickEvent);
          view.addEventListener("mouseOver",handleEvents);
@@ -35,15 +36,15 @@ package flare.apps.controls
          view.addChild(_border);
       }
       
-      private function handleEvents(param1:MouseEvent) : void
+      private function handleEvents(evt:MouseEvent) : void
       {
-         _state = param1.type;
+         _state = evt.type;
          draw();
       }
       
-      private function mouseClickEvent(param1:MouseEvent) : void
+      private function mouseClickEvent(evt:MouseEvent) : void
       {
-         dispatchEvent(new ControlEvent("undo",this,param1.ctrlKey,param1.altKey,param1.shiftKey,param1.controlKey));
+         dispatchEvent(new ControlEvent(ControlEvent.UNDO, this,evt.ctrlKey,evt.altKey,evt.shiftKey,evt.controlKey));
          if(toggle)
          {
             if(count > 1)
@@ -60,19 +61,18 @@ package flare.apps.controls
          {
             index = index + 1;
          }
-         dispatchEvent(new ControlEvent("click",this,param1.ctrlKey,param1.altKey,param1.shiftKey,param1.controlKey));
+         dispatchEvent(new ControlEvent(ControlEvent.CLICK,this,evt.ctrlKey,evt.altKey,evt.shiftKey,evt.controlKey));
       }
       
       override public function draw() : void
       {
          view.graphics.clear();
          _border.graphics.clear();
-         var _loc1_:* = _state;
-         if("mouseOver" !== _loc1_)
+         if("mouseOver" !== _state)
          {
-            if("mouseUp" !== _loc1_)
+            if("mouseUp" !== _state)
             {
-               if("mouseDown" === _loc1_)
+               if("mouseDown" === _state)
                {
                   view.graphics.beginFill(Style.backgroundColor2);
                   view.graphics.drawRect(0,0,width,height);

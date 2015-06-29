@@ -21,9 +21,9 @@ package flare.ide.events
       
       public static const RENDER_QUEUE:String = "scene:renderQueue";
       
-      public function SceneEvent(param1:String)
+      public function SceneEvent(type_t:String)
       {
-         super(param1,false,true);
+         super(type_t, false, true);
       }
       
       override public function clone() : Event
@@ -33,7 +33,7 @@ package flare.ide.events
       
       override public function toString() : String
       {
-         return formatToString("SceneEvent","type");
+         return formatToString("SceneEvent", "type");
       }
    }
 }

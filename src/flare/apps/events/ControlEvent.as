@@ -24,7 +24,7 @@ package flare.apps.events
       
       public function ControlEvent(param1:String, param2:Control, param3:Boolean = false, param4:Boolean = false, param5:Boolean = false, param6:Boolean = false)
       {
-         super(param1,false,false,NaN,NaN,param2?param2.view:null,param3,param4,param5,param6);
+         super(param1,false,false,NaN,NaN, param2? param2.view : null, param3, param4, param5, param6);
          _target = param2;
       }
       
