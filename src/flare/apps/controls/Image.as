@@ -8,6 +8,7 @@ package flare.apps.controls
    import flash.events.Event;
    import flash.net.URLRequest;
    
+   import flare.apps.containers.Container;
    import flare.apps.core.Style;
    
    public class Image extends Control
@@ -29,17 +30,18 @@ package flare.apps.controls
       
       private var _content:Sprite;
       
-      public function Image(param1:* = null, param2:String = "none", param3:Number = NaN, param4:Number = NaN)
+      public function Image(request:* = null, stretch_t:String = "none", w_t:Number = NaN, h_t:Number = NaN)
       {
          _array = [];
          _content = new Sprite();
          super("",0,0,1,1);
-         this.stretch = param2;
-         this.source = param1;
+         this.stretch = stretch_t;
+         this.source = request;
          view.addChild(_content);
-         if(!isNaN(param3) && !isNaN(param4))
+		 
+         if(!isNaN(w_t) && !isNaN(h_t))
          {
-            setSize(param3,param4);
+            setSize(w_t,h_t);
          }
          else
          {
@@ -47,25 +49,25 @@ package flare.apps.controls
          }
       }
       
-      private function setSize(param1:Number, param2:Number) : void
+      private function setSize(w_t:Number, h_t:Number) : void
       {
-         var _loc3_:* = null;
+         var parent_t:Container;
          flexible = 1;
-         this.width = param1;
-         this.height = param2;
-         minWidth = param1;
-         maxWidth = param1;
-         minHeight = param2;
-         maxHeight = param2;
+         this.width = w_t;
+         this.height = h_t;
+         minWidth = w_t;
+         maxWidth = w_t;
+         minHeight = h_t;
+         maxHeight = h_t;
          if(parent)
          {
-            _loc3_ = parent;
-            while(_loc3_.parent)
+            parent_t = parent;
+            while(parent_t.parent)
             {
-               _loc3_ = _loc3_.parent;
+               parent_t = parent_t.parent;
             }
-            _loc3_.update();
-            _loc3_.draw();
+            parent_t.update();
+            parent_t.draw();
          }
       }
       
@@ -74,29 +76,27 @@ package flare.apps.controls
          return _source;
       }
       
-      public function set source(param1:*) : void
+      public function set source(val:*) : void
       {
-         if(!param1)
+         if(!val)
          {
             return;
          }
-         if(param1 is String)
+         if(val is String)
          {
-            param1 = (param1).split(",");
+            val = (val).split(",");
          }
-         if(param1 is Array)
+         if(val is Array)
          {
             _array = [];
-            var _loc4_:* = 0;
-            var _loc3_:* = param1;
-            for each(var _loc2_:* in param1)
+            for each(var child_t:* in val)
             {
-               _array.push(addSource(_loc2_));
+               _array.push(addSource(child_t));
             }
          }
          else
          {
-            _array = [addSource(param1)];
+            _array = [addSource(val)];
          }
          _content.removeChildren();
          _content.addChild(_array[0]);
@@ -108,53 +108,52 @@ package flare.apps.controls
          draw();
       }
       
-      private function addSource(param1:*) : *
+      private function addSource(val:*) : *
       {
-         var _loc2_:* = null;
-         var _loc3_:* = null;
-         if(param1 is Bitmap)
+         var img_loader:Loader;
+		 
+         if(val is Bitmap)
          {
-            _loc2_ = param1;
-            return _loc2_;
+            return val;
          }
-         if(param1 is BitmapData)
+         if(val is BitmapData)
          {
-            _loc2_ = new Bitmap(param1);
-            return _loc2_;
+            return new Bitmap(val);
          }
-         if(param1 is String)
+         if(val is String)
          {
-            _loc3_ = new Loader();
-            _loc3_.contentLoaderInfo.addEventListener("complete",completeLoaderEvent);
-            _loc3_.load(new URLRequest(param1));
-            return _loc3_;
+            img_loader = new Loader();
+            img_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, completeLoaderEvent);
+            img_loader.load(new URLRequest(val));
+            return img_loader;
          }
       }
       
-      private function completeLoaderEvent(param1:Event) : void
+      private function completeLoaderEvent(evt:Event) : void
       {
-         var _loc3_:LoaderInfo = param1.target as LoaderInfo;
-         var _loc2_:Bitmap = _loc3_.content as Bitmap;
+         var img_loader_info:LoaderInfo = evt.target as LoaderInfo;
+		 img_loader_info.removeEventListener(Event.COMPLETE, completeLoaderEvent);
+         var img_bmp:Bitmap = img_loader_info.content as Bitmap;
          if(_autoAdjust)
          {
-            setSize(_loc2_.width,_loc2_.height);
+            setSize(img_bmp.width, img_bmp.height);
          }
          draw();
       }
       
-      public function get count() : int
+      public function get count():int
       {
          return _array.length;
       }
       
-      public function get index() : int
+      public function get index():int
       {
          return _index;
       }
       
-      public function set index(param1:int) : void
+      public function set index(val:int) : void
       {
-         _index = param1 % _array.length;
+         _index = val % _array.length;
          _content.removeChildren();
          if(_index < _array.length)
          {
@@ -171,9 +170,10 @@ package flare.apps.controls
       
       override public function draw() : void
       {
-         var _loc2_:* = null;
-         var _loc1_:* = NaN;
-         var _loc3_:* = NaN;
+         var bmp:Bitmap;
+         var w_t:Number;
+         var h_t:Number;
+		 
          view.graphics.clear();
          if(stretch == "none")
          {
@@ -192,24 +192,24 @@ package flare.apps.controls
             {
                return;
             }
-            _loc2_ = _content.getChildAt(0) as Bitmap;
-            if(_loc2_)
+            bmp = _content.getChildAt(0) as Bitmap;
+            if(bmp)
             {
-               _loc1_ = _loc2_.bitmapData.width;
-               _loc3_ = _loc2_.bitmapData.height;
-               _loc3_ = height;
-               _loc1_ = _loc3_ * _loc2_.bitmapData.width / _loc2_.bitmapData.height;
-               _content.width = _loc1_;
-               _content.height = _loc3_;
+               w_t = bmp.bitmapData.width;
+               h_t = bmp.bitmapData.height;
+               h_t = height;
+               w_t = h_t * bmp.bitmapData.width / bmp.bitmapData.height;
+               _content.width = w_t;
+               _content.height = h_t;
                if(stretch == "left")
                {
-                  maxWidth = _loc1_;
-                  minWidth = _loc1_;
+                  maxWidth = w_t;
+                  minWidth = w_t;
                }
                else
                {
-                  maxHeight = _loc3_;
-                  minHeight = _loc3_;
+                  maxHeight = h_t;
+                  minHeight = h_t;
                }
             }
             _content.x = width * 0.5 - _content.width * 0.5;

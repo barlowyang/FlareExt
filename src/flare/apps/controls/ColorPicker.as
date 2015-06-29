@@ -100,18 +100,20 @@ package flare.apps.controls
       override public function draw() : void
       {
          view.graphics.clear();
+		 
          view.graphics.lineStyle(1,Style.borderBright,1,true);
          view.graphics.beginBitmapFill(nullBitmapData);
          view.graphics.drawRect(0,0,width,height);
          view.graphics.endFill();
+		 
          view.graphics.beginFill(_color,_alpha);
          view.graphics.drawRect(0,0,width,height);
          view.graphics.endFill();
       }
       
-      public function set color(param1:int) : void
+      public function set color(val:int) : void
       {
-         _color = param1;
+         _color = val;
          draw();
       }
       
@@ -120,9 +122,9 @@ package flare.apps.controls
          return _color;
       }
       
-      public function set a(param1:Number) : void
+      public function set a(val:Number) : void
       {
-         _alpha = param1;
+         _alpha = val;
          draw();
       }
       
@@ -161,30 +163,30 @@ package flare.apps.controls
          return _color & 255;
       }
       
-      public function fromRGB(param1:int, param2:int, param3:int) : void
+      public function fromRGB(red_c:int, green_c:int, blue_c:int) : void
       {
-         _color = param1 << 16 ^ param2 << 8 ^ param3;
+         _color = red_c << 16 ^ green_c << 8 ^ blue_c;
          draw();
       }
       
-      public function fromVector(param1:Vector.<Number>) : void
+      public function fromVector(valVec:Vector.<Number>) : void
       {
          _color = 0;
-         if(param1.length >= 1)
+         if(valVec.length >= 1)
          {
-            _color = _color | (param1[0] * 255) << 16;
+            _color = _color | (valVec[0] * 255) << 16;
          }
-         if(param1.length >= 2)
+         if(valVec.length >= 2)
          {
-            _color = _color | (param1[1] * 255) << 8;
+            _color = _color | (valVec[1] * 255) << 8;
          }
-         if(param1.length >= 3)
+         if(valVec.length >= 3)
          {
-            _color = _color | (param1[2] * 255);
+            _color = _color | (valVec[2] * 255);
          }
-         if(param1.length >= 4)
+         if(valVec.length >= 4)
          {
-            _alpha = _alpha | param1[3];
+            _alpha = _alpha | valVec[3];
          }
          draw();
       }
