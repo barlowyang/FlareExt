@@ -54,12 +54,6 @@ package flare.core
 		
 		private static var _matrix:Matrix = new Matrix();
 		
-		{
-			data = Particles3D_data;
-			_shape = new Shape();
-			_matrix = new Matrix();
-		}
-		
 		public var duration:Number = 1;
 		
 		public var initParticleFunction:Function;
@@ -130,7 +124,6 @@ package flare.core
 		
 		private var _energy:Vector3D;
 		
-//		private var _area:Vector3D;
 		private var _area:TParticleAreaBase;
 		
 		private var _hemisphere:Boolean = false;
@@ -151,9 +144,9 @@ package flare.core
 		
 		private var _gravity:Vector3D;
 		
-		private var _srcFactor:String = "one";
+		private var _srcFactor:String = Context3DBlendFactor.ONE;
 		
-		private var _destFactor:String = "one";
+		private var _destFactor:String = Context3DBlendFactor.ONE;
 		
 		private var _textureFrames:Point;
 		
@@ -414,11 +407,6 @@ package flare.core
 		
 		private function initFunction(emitter:Particles3DExt, index:int, init:ParticleInit3D) : void
 		{
-			/*
-			init.position.x = this._area.x * this.random() - this._area.x * 0.5;
-			init.position.y = this._area.y * this.random() - this._area.y * 0.5;
-			init.position.z = this._area.z * this.random() - this._area.z * 0.5;
-			*/
 			var tmp_pos:Vector3D = _area.GeneratePos();
 			init.position.x = tmp_pos.x;
 			init.position.y = tmp_pos.y;

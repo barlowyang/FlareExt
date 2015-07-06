@@ -8,17 +8,19 @@ package flare.apps.events
    public class ControlEvent extends MouseEvent
    {
       
-      public static const CLICK:String = "click";
+      public static const CLICK:String = "Control_click";
       
-      public static const RIGHT_CLICK:String = "rightClick";
+      public static const RIGHT_CLICK:String = "Control_rightClick";
       
-      public static const DOUBLE_CLICK:String = "doubleClick";
+      public static const DOUBLE_CLICK:String = "Control_doubleClick";
       
-      public static const CHANGE:String = "change";
+      public static const CHANGE:String = "Control_change";
       
-      public static const STOP:String = "stop";
+      public static const STOP:String = "Control_stop";
       
-      public static const UNDO:String = "undo";
+      public static const UNDO:String = "Control_undo";
+	  
+	  public static const DRAW_EXIT:String = "Control_drawexit";
       
       private var _target:Control;
       
